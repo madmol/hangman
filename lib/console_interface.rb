@@ -22,16 +22,17 @@ class ConsoleInterface
 
   def print_out
     puts <<~END
-      Слово #{word_to_show}
-      #{figure}
-      Ошибки: (#{@game.errors_made}): #{errors_to_show}
+      #{('Слово ' + word_to_show).colorize(:blue)}
+      #{figure.colorize(:yellow)}
+      #{('Ошибки: (' + @game.errors_made.to_s + '): '\
+        + errors_to_show.to_s).colorize(:red)}
       У вас осталось ошибок: #{@game.errors_allowed}
     END
 
     if @game.won?
-      puts "Поздравляем, вы выиграли!"
+      puts "Поздравляем, вы выиграли!".colorize(:blue)
     elsif @game.lost?
-      puts "Вы проиграли, загаданное слово #{@game.word}"
+      puts "Вы проиграли, загаданное слово #{@game.word}".colorize(:blue)
     end
   end
 
