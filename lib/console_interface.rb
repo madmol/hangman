@@ -1,7 +1,7 @@
 class ConsoleInterface
   FIGURES =
-    Dir["#{__dir__}/../data/figures/*.txt"].sort
-      .map { |file_name| File.read(file_name) }
+      Dir["#{__dir__}/../data/figures/*.txt"].sort
+          .map { |file_name| File.read(file_name) }
 
   def initialize(game)
     @game = game
@@ -15,36 +15,45 @@ class ConsoleInterface
     FIGURES[@game.errors_made]
   end
 
+  def game_over?
+    @game.won? || @game.lost?
+  end
+
   def get_input
     print "Введите следующую букву: "
     gets[0].upcase
   end
 
+  def result
+    if @game.won?
+      "Поздравляем, вы выиграли!".colorize(:blue).blink
+    elsif @game.lost?
+      "Вы проиграли, загаданное слово #{@game.word}".colorize(:red).blink
+    end
+  end
+
   def print_out
+    word = 'Слово ' + word_to_show
+    errors = 'Ошибки: (' + @game.errors_made.to_s + '): ' + errors_to_show.to_s
     puts <<~END
-      #{('Слово ' + word_to_show).colorize(:blue)}
+      #{word.colorize(:blue)}
       #{figure.colorize(:yellow)}
-      #{('Ошибки: (' + @game.errors_made.to_s + '): '\
-        + errors_to_show.to_s).colorize(:red)}
+      #{errors.colorize(:red)}
       У вас осталось ошибок: #{@game.errors_allowed}
     END
 
-    if @game.won?
-      puts "Поздравляем, вы выиграли!".colorize(:blue)
-    elsif @game.lost?
-      puts "Вы проиграли, загаданное слово #{@game.word}".colorize(:blue)
-    end
+    puts result if game_over?
   end
 
   def word_to_show
     result =
-      @game.letters_to_quess.map do |letter|
-        if letter.nil?
-          '__'
-        else
-          letter
+        @game.letters_to_quess.map do |letter|
+          if letter.nil?
+            '__'
+          else
+            letter
+          end
         end
-      end
     result.join(' ')
   end
 end
