@@ -1,5 +1,7 @@
 # Консольная игра виселица
 
+![Screenshot from 2020-10-08 13-48-55](https://user-images.githubusercontent.com/62602107/95455010-e3a50b00-0975-11eb-97bd-940e5889213e.png)
+
 Игра написана на языке Ruby версии 2.7.1. Для работы игры необходимо, чтобы
 был установлен гем [bundler](https://bundler.io/). 
 
