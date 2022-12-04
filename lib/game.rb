@@ -33,21 +33,6 @@ class Game
     errors_allowed == 0
   end
 
-  def normalize_letter(letter)
-    case letter
-    when 'Й'
-      'И'
-    when 'Ё'
-      'Е'
-    else
-      letter
-    end
-  end
-
-  def normalized_letters
-    @letters_normalized = @letters.map { |letter| normalize_letter(letter) }
-  end
-
   def over?
     won? || lost?
   end
@@ -64,5 +49,22 @@ class Game
 
   def word
     @letters.join
+  end
+
+  private
+
+  def normalize_letter(letter)
+    case letter
+    when 'Й'
+      'И'
+    when 'Ё'
+      'Е'
+    else
+      letter
+    end
+  end
+
+  def normalized_letters
+    @letters_normalized = @letters.map { |letter| normalize_letter(letter) }
   end
 end
