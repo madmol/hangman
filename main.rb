@@ -17,5 +17,3 @@ until game.over?
 end
 
 console_interface.print_out
-
-
